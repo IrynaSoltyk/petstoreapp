@@ -162,7 +162,7 @@ public class PetStoreServiceImpl implements PetStoreService {
 			try {
 				throw new Exception("Cannot move further");
 			} catch(Exception e) {
-				logger.error("Exception occured", e);
+				this.sessionUser.getTelemetryClient().trackException(e);
 			}
 
 			return products;
