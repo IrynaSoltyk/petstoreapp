@@ -159,9 +159,13 @@ public class PetStoreServiceImpl implements PetStoreService {
 			eventPropertiesMap.put("username", this.sessionUser.getName());
 			this.sessionUser.getTelemetryClient().trackEvent("Get products event" , eventPropertiesMap, metricsMap);
 
-			throw new RuntimeException("Cannot move further");
+			try {
+				throw new Exception("Cannot move further");
+			} catch(Exception e) {
+				logger.error("Exception occured", e);
+			}
 
-			//return products;
+			return products;
 		} catch (
 
 		WebClientException wce) {
