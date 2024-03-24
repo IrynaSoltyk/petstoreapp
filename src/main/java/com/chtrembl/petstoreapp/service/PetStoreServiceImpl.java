@@ -15,12 +15,12 @@ import com.chtrembl.petstoreapp.model.WebRequest;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -30,7 +30,9 @@ import reactor.core.publisher.Mono;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -148,6 +150,14 @@ public class PetStoreServiceImpl implements PetStoreService {
 				products = products.stream().filter(product -> category.equals(product.getCategory().getName())
 						&& product.getTags().toString().contains("small")).collect(Collectors.toList());
 			}
+
+			Map<String, Double> metricsMap = new HashMap<>(1);
+			metricsMap.put("Number of products" , Double.valueOf(products.size()));
+			Map<String, String> eventPropertiesMap = new HashMap<>(2);
+			eventPropertiesMap.put("session_Id",  this.sessionUser.getSessionId());
+			eventPropertiesMap.put("username", this.sessionUser.getName());
+			this.sessionUser.getTelemetryClient().trackEvent("Get products event" , eventPropertiesMap, metricsMap);
+
 			return products;
 		} catch (
 
