@@ -1,0 +1,56 @@
+2024-03-23 16:29:39.882+02:00 ERROR c.m.applicationinsights.agent - 
+*************************
+Application Insights Java Agent 3.5.1 startup failed (PID 803)
+*************************
+
+Description:
+No connection string provided
+
+Action:
+Please provide connection string.
+
+2024-03-23 17:07:09.939+02:00 ERROR c.m.applicationinsights.agent - 
+*************************
+Application Insights Java Agent 3.5.1 startup failed (PID 3573)
+*************************
+
+Description:
+No connection string provided
+
+Action:
+Please provide connection string.
+
+2024-03-23 17:13:58.448+02:00 ERROR c.m.applicationinsights.agent - 
+*************************
+Application Insights Java Agent 3.5.1 startup failed (PID 3780)
+*************************
+
+Description:
+No connection string provided
+
+Action:
+Please provide connection string.
+
+2024-03-23 17:23:06.835+02:00 WARN  c.a.c.h.netty.implementation.Utility - The following Netty dependencies have versions that do not match the versions specified in the azure-core-http-netty pom.xml file. This may result in unexpected behavior. If your application runs without issue this message can be ignored, otherwise please update the Netty dependencies to match the versions specified in the pom.xml file. Versions found in runtime: 'io.netty:netty-common' version not found (expected: 4.1.101.Final),'io.netty:netty-handler' version not found (expected: 4.1.101.Final),'io.netty:netty-handler-proxy' version not found (expected: 4.1.101.Final),'io.netty:netty-buffer' version not found (expected: 4.1.101.Final),'io.netty:netty-codec' version not found (expected: 4.1.101.Final),'io.netty:netty-codec-http' version not found (expected: 4.1.101.Final),'io.netty:netty-codec-http2' version not found (expected: 4.1.101.Final)
+2024-03-23 17:23:08.563+02:00 INFO  c.m.applicationinsights.agent - Application Insights Java Agent 3.5.1 started successfully (PID 3968, JVM running for 3.088 s)
+2024-03-23 17:23:08.566+02:00 INFO  c.m.applicationinsights.agent - Java version: 17.0.7, vendor: Private Build, home: /usr/lib/jvm/java-17-openjdk-amd64
+2024-03-23 17:49:07.344+02:00 WARN  c.a.m.o.e.i.p.TelemetryPipeline - Sending telemetry to the ingestion service: recvAddress(..) failed: Connection reset by peer (https://eastus-8.in.applicationinsights.azure.com/v2.1/track) (telemetry will be stored to disk and retried) (future warnings will be aggregated and logged once every 5 minutes)
+io.netty.channel.unix.Errors$NativeIoException: recvAddress(..) failed: Connection reset by peer
+2024-03-23 17:49:09.592+02:00 WARN  c.a.m.o.e.i.q.QuickPulsePingSender - Pinging live metrics endpoint: io.netty.channel.unix.Errors$NativeIoException: recvAddress(..) failed: Connection reset by peer (https://eastus.livediagnostics.monitor.azure.com/QuickPulseService.svc) (future warnings will be aggregated and logged once every 5 minutes)
+reactor.core.Exceptions$ReactiveException: io.netty.channel.unix.Errors$NativeIoException: recvAddress(..) failed: Connection reset by peer
+	at reactor.core.Exceptions.propagate(Exceptions.java:408)
+	at reactor.core.publisher.BlockingSingleSubscriber.blockingGet(BlockingSingleSubscriber.java:101)
+	at reactor.core.publisher.Mono.block(Mono.java:1712)
+	at com.azure.monitor.opentelemetry.exporter.implementation.quickpulse.QuickPulsePingSender.ping(QuickPulsePingSender.java:102)
+	at com.azure.monitor.opentelemetry.exporter.implementation.quickpulse.QuickPulseCoordinator.ping(QuickPulseCoordinator.java:100)
+	at com.azure.monitor.opentelemetry.exporter.implementation.quickpulse.QuickPulseCoordinator.run(QuickPulseCoordinator.java:53)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+	Suppressed: java.lang.Exception: #block terminated with an error
+		at reactor.core.publisher.BlockingSingleSubscriber.blockingGet(BlockingSingleSubscriber.java:103)
+		... 5 common frames omitted
+Caused by: io.netty.channel.unix.Errors$NativeIoException: recvAddress(..) failed: Connection reset by peer
+2024-03-23 17:49:19.666+02:00 WARN  c.a.m.o.e.i.p.TelemetryPipeline - Sending telemetry to the ingestion service: recvAddress(..) failed: Connection reset by peer (https://eastus-8.in.applicationinsights.azure.com/v2.1/track) (telemetry will be stored to disk and retried) (future warnings will be aggregated and logged once every 5 minutes)
+io.netty.channel.unix.Errors$NativeIoException: recvAddress(..) failed: Connection reset by peer
+2024-03-23 17:51:26.839+02:00 WARN  c.a.c.h.netty.implementation.Utility - The following Netty dependencies have versions that do not match the versions specified in the azure-core-http-netty pom.xml file. This may result in unexpected behavior. If your application runs without issue this message can be ignored, otherwise please update the Netty dependencies to match the versions specified in the pom.xml file. Versions found in runtime: 'io.netty:netty-common' version not found (expected: 4.1.101.Final),'io.netty:netty-handler' version not found (expected: 4.1.101.Final),'io.netty:netty-handler-proxy' version not found (expected: 4.1.101.Final),'io.netty:netty-buffer' version not found (expected: 4.1.101.Final),'io.netty:netty-codec' version not found (expected: 4.1.101.Final),'io.netty:netty-codec-http' version not found (expected: 4.1.101.Final),'io.netty:netty-codec-http2' version not found (expected: 4.1.101.Final)
+2024-03-23 17:51:28.306+02:00 INFO  c.m.applicationinsights.agent - Application Insights Java Agent 3.5.1 started successfully (PID 4221, JVM running for 2.641 s)
+2024-03-23 17:51:28.308+02:00 INFO  c.m.applicationinsights.agent - Java version: 17.0.7, vendor: Private Build, home: /usr/lib/jvm/java-17-openjdk-amd64

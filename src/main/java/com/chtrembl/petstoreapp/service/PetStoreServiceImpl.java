@@ -121,6 +121,7 @@ public class PetStoreServiceImpl implements PetStoreService {
 
 	@Override
 	public Collection<Product> getProducts(String category, List<Tag> tags) {
+
 		List<Product> products = new ArrayList<>();
 
 		try {
@@ -158,7 +159,9 @@ public class PetStoreServiceImpl implements PetStoreService {
 			eventPropertiesMap.put("username", this.sessionUser.getName());
 			this.sessionUser.getTelemetryClient().trackEvent("Get products event" , eventPropertiesMap, metricsMap);
 
-			return products;
+			throw new RuntimeException("Cannot move further");
+
+			//return products;
 		} catch (
 
 		WebClientException wce) {

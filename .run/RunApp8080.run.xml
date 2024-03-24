@@ -3,14 +3,25 @@
     <option name="ALTERNATIVE_JRE_PATH" value="17" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <envs>
-      <env name="PETSTOREAPP_SERVER_PORT" value="8080" />
+      <env name="PETSTOREAPP_SERVER_PORT" value="8087" />
       <env name="PETSTOREPETSERVICE_URL" value="http://localhost:8081" />
       <env name="PETSTOREPRODUCTSERVICE_URL" value="http://localhost:8082" />
       <env name="PETSTOREORDERSERVICE_URL" value="http://localhost:8083" />
+      <env name="APPLICATIONINSIGHTS_CONNECTION_STRING" value="InstrumentationKey=382693c8-c64a-4fcb-a741-425126a9c7ce;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/" />
     </envs>
-    <module name="petstoreapp" />
     <option name="MAIN_CLASS_NAME" value="com.chtrembl.petstoreapp.PetstoreappApplication" />
+    <module name="petstoreapp" />
     <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+    <extension name="net.ashald.envfile">
+      <option name="IS_ENABLED" value="false" />
+      <option name="IS_SUBST" value="false" />
+      <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+      <option name="IS_IGNORE_MISSING_FILES" value="false" />
+      <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+      <ENTRIES>
+        <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+      </ENTRIES>
+    </extension>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
