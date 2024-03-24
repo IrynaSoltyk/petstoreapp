@@ -159,13 +159,9 @@ public class PetStoreServiceImpl implements PetStoreService {
 			eventPropertiesMap.put("username", this.sessionUser.getName());
 			this.sessionUser.getTelemetryClient().trackEvent("Get products event" , eventPropertiesMap, metricsMap);
 
-			try {
 				throw new Exception("Cannot move further");
-			} catch(Exception e) {
-				this.sessionUser.getTelemetryClient().trackException(e);
-			}
 
-			return products;
+			//return products;
 		} catch (
 
 		WebClientException wce) {
@@ -184,6 +180,15 @@ public class PetStoreServiceImpl implements PetStoreService {
 			product.setName(
 					"petstore.service.url:${PETSTOREPRODUCTSERVICE_URL} needs to be enabled for this service to work"
 							+ iae.getMessage());
+			product.setPhotoURL("");
+			product.setCategory(new Category());
+			product.setId((long) 0);
+			products.add(product);
+		} catch (Exception exc) {
+			// little hack to visually show the error message within our Azure Pet Store
+			// Reference Guide (Academic Tutorial)
+			Product product = new Product();
+			product.setName(exc.getMessage());
 			product.setPhotoURL("");
 			product.setCategory(new Category());
 			product.setId((long) 0);
