@@ -57,6 +57,9 @@ public class ContainerEnvironment implements Serializable {
 	@Value("${petstore.service.order.url:}")
 	private String petStoreOrderServiceURL;
 
+	@Value("${petstore.order.resolver.url:}")
+	private String petStoreOrderResolverURL;
+
 	@Value("${petstore.service.subscription.key:}")
 	private String petStoreServicesSubscriptionKey;
 
@@ -213,6 +216,10 @@ public class ContainerEnvironment implements Serializable {
 
 	public String getPetStoreOrderServiceURL() {
 		return petStoreOrderServiceURL;
+	}
+
+	public String getOrderResolverUrl() {
+		return petStoreOrderResolverURL;
 	}
 
 	public String getPetstoreAPIMHost() {

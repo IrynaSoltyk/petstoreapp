@@ -236,7 +236,8 @@ public class PetStoreServiceImpl implements PetStoreService {
 					.retrieve()
 					.bodyToMono(Order.class).block();
 
-			String uri = "${ORDERRESOLVER_URL}/api/resolveOrder?filename=" + this.sessionUser.getSessionId();
+
+			String uri = this.containerEnvironment.getOrderResolverUrl() + "/api/resolveOrder?filename=" + this.sessionUser.getSessionId();
 
 			this.orderServiceWebClient.post().uri(uri)
 					.body(Mono.just(updatedOrder), Order.class)
