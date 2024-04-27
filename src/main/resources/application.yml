@@ -42,3 +42,17 @@ spring:
     cache: false
   cache:
     cache-names: currentUsers
+  cloud:
+    azure:
+      active-directory:
+        b2c:
+          enabled: true
+          base-uri: ${AUTH_BASE_URI}
+          credential:
+            client-id: ${AUTH_CLIENT_ID}
+            client-secret: ${AUTH_CLIENT_SECRET}
+          login-flow: sign-up-or-sign-in
+          logout-success-url: ${LOGOUT_SUCCESS_URL}
+          user-flows:
+            sign-up-or-sign-in: ${SIGNUPSIGNIN_USER_FLOW}
+            password-reset: ${PASSWORDRESET_USER_FLOW}

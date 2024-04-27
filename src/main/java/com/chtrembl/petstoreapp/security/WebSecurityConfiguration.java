@@ -17,8 +17,8 @@ import com.chtrembl.petstoreapp.model.ContainerEnvironment;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private static Logger logger = LoggerFactory.getLogger(WebSecurityConfiguration.class);
 
-	@Autowired(required = false)
-	private AADB2COidcLoginConfigurerWrapper aadB2COidcLoginConfigurerWrapper = null;
+	@Autowired
+	private AADB2COidcLoginConfigurerWrapper aadB2COidcLoginConfigurerWrapper;
 
 	@Autowired
 	private ContainerEnvironment containeEnvironment;
@@ -38,21 +38,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		if (this.aadB2COidcLoginConfigurerWrapper != null
 				&& this.aadB2COidcLoginConfigurerWrapper.getConfigurer() != null) {
 
-			http.csrf().ignoringAntMatchers("/signalr/**").and().authorizeRequests().antMatchers("/")
-					.permitAll()
-					.antMatchers("/*breed*").permitAll()
-					.antMatchers("/*product*").permitAll()
-					.antMatchers("/*cart*").permitAll()
-					.antMatchers("/api/contactus").permitAll()
-					.antMatchers("/slowness").permitAll()
-					.antMatchers("/exception").permitAll()
-					.antMatchers("/introspectionSimulation*").permitAll()
-					.antMatchers("/bingSearch*").permitAll()
-					.antMatchers("/signalr/negotiate").permitAll()
-					.antMatchers("/signalr/test").permitAll()
-					.antMatchers("/login*").permitAll().anyRequest()
-					.authenticated().and().apply(this.aadB2COidcLoginConfigurerWrapper.getConfigurer()).and()
-					.oauth2Login().loginPage("/login");
+			http.csrf().ignoringAntMatchers("/signalr/**").and()
+					.authorizeRequests().anyRequest().authenticated()
+					.and().apply(this.aadB2COidcLoginConfigurerWrapper.getConfigurer());
 
 			this.containeEnvironment.setSecurityEnabled(true);
 		} else {

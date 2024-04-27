@@ -137,6 +137,7 @@ public class WebAppController {
 	@GetMapping(value = { "/dogbreeds", "/catbreeds", "/fishbreeds" })
 	public String breeds(Model model, OAuth2AuthenticationToken token, HttpServletRequest request,
 			@RequestParam(name = "category") String category) throws URISyntaxException {
+		initializeModel(model, token);
 
 		// quick validation, should really be done in validators, check for cross side
 		// scripting etc....
@@ -153,6 +154,7 @@ public class WebAppController {
 	public String breedeetails(Model model, OAuth2AuthenticationToken token, HttpServletRequest request,
 			@RequestParam(name = "category") String category, @RequestParam(name = "id") int id)
 			throws URISyntaxException {
+		initializeModel(model, token);
 
 		// quick validation, should really be done in validators, check for cross side
 		// scripting etc....
@@ -185,6 +187,7 @@ public class WebAppController {
 	public String products(Model model, OAuth2AuthenticationToken token, HttpServletRequest request,
 			@RequestParam(name = "category") String category, @RequestParam(name = "id") int id)
 			throws URISyntaxException {
+		initializeModel(model, token);
 
 		// quick validation, should really be done in validators, check for cross side
 		// scripting etc....
@@ -211,6 +214,7 @@ public class WebAppController {
 
 	@GetMapping(value = "/cart")
 	public String cart(Model model, OAuth2AuthenticationToken token, HttpServletRequest request) {
+		initializeModel(model, token);
 		Order order = this.petStoreService.retrieveOrder(this.sessionUser.getSessionId());
 		model.addAttribute("order", order);
 		int cartSize = 0;
@@ -229,6 +233,7 @@ public class WebAppController {
 	@PostMapping(value = "/updatecart")
 	public String updatecart(Model model, OAuth2AuthenticationToken token, HttpServletRequest request,
 			@RequestParam Map<String, String> params) {
+		initializeModel(model, token);
 		int cartCount = 1;
 
 		String operator = params.get("operator");
@@ -244,6 +249,7 @@ public class WebAppController {
 
 	@PostMapping(value = "/completecart")
 	public String updatecart(Model model, OAuth2AuthenticationToken token, HttpServletRequest request) {
+		initializeModel(model, token);
 		if (token != null) {
 			this.petStoreService.updateOrder(0, 0, true);
 		}
@@ -253,6 +259,7 @@ public class WebAppController {
 	@GetMapping(value = "/claims")
 	public String claims(Model model, OAuth2AuthenticationToken token, HttpServletRequest request)
 			throws URISyntaxException {
+		initializeModel(model, token);
 		logger.info(String.format("PetStoreApp /claims requested for %s, routing to claims view...",
 				this.sessionUser.getName()));
 		return "claims";
@@ -261,6 +268,7 @@ public class WebAppController {
 	@GetMapping(value = "/slowness")
 	public String generateappinsightsslowness(Model model, OAuth2AuthenticationToken token, HttpServletRequest request)
 			throws URISyntaxException, InterruptedException {
+		initializeModel(model, token);
 		logger.info("PetStoreApp simulating slowness, routing to home view...");
 
 		PageViewTelemetry pageViewTelemetry = new PageViewTelemetry();
@@ -278,7 +286,7 @@ public class WebAppController {
 	@GetMapping(value = "/exception")
 	public String exception(Model model, OAuth2AuthenticationToken token, HttpServletRequest request)
 			throws URISyntaxException, InterruptedException {
-
+		initializeModel(model, token);
 		NullPointerException npe = new NullPointerException();
 
 		logger.info("PetStoreApp simulating NullPointerException, routing to home view..." + npe.getStackTrace());
@@ -291,6 +299,7 @@ public class WebAppController {
 	@GetMapping(value = "/*")
 	public String landing(Model model, OAuth2AuthenticationToken token, HttpServletRequest request)
 			throws URISyntaxException {
+		initializeModel(model, token);
 		logger.info(String.format("PetStoreApp %s requested and %s is being routed to home view session %s",
 				request.getRequestURI(), this.sessionUser.getName(), this.sessionUser.getSessionId()));
 		PageViewTelemetry pageViewTelemetry = new PageViewTelemetry();
@@ -312,5 +321,14 @@ public class WebAppController {
 		model.addAttribute("webpages", webpages);
 
 		return "bingSearch";
+	}
+
+	private void initializeModel(Model model, OAuth2AuthenticationToken token) {
+		if (token != null) {
+			final OAuth2User user = token.getPrincipal();
+
+			model.addAttribute("grant_type", user.getAuthorities());
+			model.addAllAttributes(user.getAttributes());
+		}
 	}
 }
